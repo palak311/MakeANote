@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+
+    <title>ToDoPage</title>
+  </head>
+  <body>
+    
+    <h1 style="height:70px">Your to do list: </h1>
+
+    
+
+    <!--form container-->
+    <div class="container"> 
+      
+      <form class="row g-3 needs-validation" action="/" method="POST" novalidate>
+        <div class="col-md-4">
+          <label for="validationCustom01" class="form-label mb-1" >To Do item: </label>
+          <input
+            type="text"
+            class="form-control mb-3 "
+            name="itemTodo"
+            id="validationCustom01"
+            style="height: 100px" 
+            required="required"
+          />
+        <div class="col-12">
+          <button type="submit" class="btn btn-outline-dark sm">Add to the list</button>
+        </div>
+      </form>
+    </div>
+
+    {% if error %}
+         <p><strong>Error:</strong> {{ error }}</p>
+    {% endif %}
+
+    <!--to do table container-->
+    <div class="container my-3">
+      <table class="table table-striped">
+        
+          {% if allTodo|length == 0 %}
+            <div class="alert alert-secondary" role="alert">
+              No record.Please enter to add to the list.Thank you.
+            </div>
+          {% else %}
+            
+            <thead>
+              <tr>
+                <th scope="col">SNo.</th>
+                <th scope="col">Tasks</th>
+                <th scope="col">date_created</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            
+            {% for todo in allTodo %}
+            <tr>
+              <th scope="row">{{loop.index}}</th>
+              <td>{{todo.item}}</td>
+              <td>{{todo.date_created}}</td>
+              <td>
+                <a href="/delete/{{todo.sno}}" type="button" class="btn btn-outline-dark sm mx-1">Delete</a>
+                <a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-dark sm">Update</a>
+              </td>
+            </tr>
+            {% endfor %}
+          {% endif %}
+          
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
